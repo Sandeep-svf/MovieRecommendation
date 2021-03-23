@@ -1,0 +1,56 @@
+
+<html>
+    <head>
+        <title>Top 20</title>
+        
+        </head>
+    <body bgcolor="red">
+              <!-- {% 
+from django.shortcuts import render
+from django.conf import settings
+from django.http import HttpResponse
+def reccom(request):
+    import pandas as pd
+    import numpy as np
+    #import matplotlib.pyplot as plt
+    #import seaborn as sns
+    from scipy import stats
+    from ast import literal_eval
+    from sklearn.feature_extraction.text import TfidfVectorizer, CountVectorizer
+    from sklearn.metrics.pairwise import linear_kernel, cosine_similarity
+    from nltk.stem.snowball import SnowballStemmer
+    from nltk.stem.wordnet import WordNetLemmatizer
+    from nltk.corpus import wordnet
+    from surprise import Reader, Dataset, SVD, evaluate
+
+    import warnings; warnings.simplefilter('ignore')
+
+
+    md = pd. read_csv('/home/user/akku/movies_metadata.csv')
+    vote_counts = md[md['vote_count'].notnull()]['vote_count'].astype('int')
+    vote_averages = md[md['vote_average'].notnull()]['vote_average'].astype('int')
+    C = vote_averages.mean()#mean rating
+    m = md['vote_count'].quantile(0.90)#Calculate the minimum number of votes required to be in the chart, m
+    q_movies = md.copy().loc[md['vote_count'] >= m]# Filter out all qualified movies into a new DataFrame
+    def weighted_rating(x):
+        # Function that computes the weighted rating of each movie
+        v = x['vote_count']
+        R = x['vote_average']
+        # Calculation based on the IMDB formula
+        return (v/(v+m) * R) + (m/(m+v) * C)
+    #Define a new feature 'score' and calculate its value with `weighted_rating()
+    q_movies['score'] = q_movies.apply(weighted_rating, axis=1)
+    #Finally, let's sort the DataFrame based on the score feature and output the title, vote count, vote average and weighted rating or score of the top 250 movies.
+    q_movies = q_movies.sort_values('score', ascending=False)
+    #Print the top 250 movies
+    x=q_movies[['title', 'vote_count', 'vote_average', 'score']].head(15)
+    y=x.to_html()
+    response=y
+    
+    
+    return HttpResponse(response)
+    
+        %} --->
+       
+     </body>
+</html>
